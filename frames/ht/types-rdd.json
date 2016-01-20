@@ -1,0 +1,13 @@
+{
+	"AdultService": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/AdultService", "format": "seq"},
+	"EmailAddress": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/EmailAddress", "format": "seq"},
+	"GeoCoordinates": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/GeoCoordinates", "format": "seq"},
+	"Offer": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/Offer", "format": "seq"},
+	"Organization": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/Organization", "format": "seq"},
+	"PersonOrOrganization": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/PersonOrOrganization", "format": "seq"},
+	"PhoneNumber": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/PhoneNumber", "format": "seq"},
+	"Place": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/Place", "format": "seq"},
+	"PostalAddress": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/PostalAddress", "format": "seq"},
+	"PriceSpecification": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/PriceSpecification", "format": "seq"},
+	"WebPage": {"path": "hdfs:///user/worker/partition/ht/california-ads/trial01/WebPage", "format": "seq"}
+}

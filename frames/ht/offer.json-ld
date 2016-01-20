@@ -1,0 +1,15 @@
+{ 
+  "@type" : "Offer",
+  "availableAtOrFrom": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress"
+    },
+    "geo": {
+      "@type":"GeoCoordinates"
+    }
+  },
+  "priceSpecification": {
+    "@type": "PriceSpecification"
+  }
+}
