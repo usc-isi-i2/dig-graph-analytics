@@ -3,10 +3,12 @@
   "availableAtOrFrom": {
     "@type": "Place",
     "address": {
-      "@type": "PostalAddress"
+      "@type": "PostalAddress",
+      "@explicit": true
     },
     "geo": {
-      "@type":"GeoCoordinates"
+      "@type":"GeoCoordinates",
+      "@explicit": true
     }
   },
   "priceSpecification": {
