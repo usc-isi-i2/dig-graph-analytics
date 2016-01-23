@@ -6,12 +6,11 @@
       "@type": "PostalAddress",
       "addressLocality":{},
       "addressRegion":{},
-      "a":{},
-      "uri":{},
-      "@explicit": true
+      "a":{}
     },
     "geo": {
       "@type":"GeoCoordinates",
+      "a":{},
       "@explicit": true
     }
   },
