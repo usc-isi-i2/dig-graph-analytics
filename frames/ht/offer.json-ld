@@ -4,6 +4,10 @@
     "@type": "Place",
     "address": {
       "@type": "PostalAddress",
+      "addressLocality":{}.
+      "addressRegion":{},
+      "a":{},
+      "uri":{},
       "@explicit": true
     },
     "geo": {
