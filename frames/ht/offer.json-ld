@@ -3,10 +3,7 @@
   "availableAtOrFrom": {
     "@type": "Place",
     "address": {
-      "@type": "PostalAddress",
-      "addressLocality":{},
-      "addressRegion":{},
-      "a":{}
+      "@type": "PostalAddress"
     },
     "geo": {
       "@type":"GeoCoordinates",
