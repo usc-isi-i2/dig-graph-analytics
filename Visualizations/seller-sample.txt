@@ -1,0 +1,14 @@
+{
+  "uri": "http://dig.isi.edu/ht/data/F4BA221F25993F6B6AF85041A5F17EA817498904/personororganization",
+  "a": "PersonOrOrganization",
+  "email": [
+    "http://dig.isi.edu/ht/data/emailaddress/paloma%40hushmail.com"
+  ],
+  "makesOffer": [
+    "http://dig.isi.edu/ht/data/51498586/offer"
+  ],
+  "telephone": [
+    "http://dig.isi.edu/ht/data/phonenumber/x-9494803417"
+  ],
+  "@context": "https://raw.githubusercontent.com/usc-isi-i2/dig-alignment/development/versions/2.0/karma/context.json"
+}

@@ -1,0 +1,4 @@
+This will the data input for Force-directed Layout graph
+considering only the cliques of length > 3
+
+python generate-data.py clique-input_new.txt.cliquetree.txt clique-input_rev-dict.txt vis-input.json 3

@@ -1,0 +1,146 @@
+{
+    "nodes": [
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/72B2362B18BA532DBAE79D31A81463CFA1F09DA8"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-7148682044"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/9E963A0DE33A403D3125E043668797FC9D1AF795"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/55FC5B80B2165D79072F0B88BA5571301CCD5318"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/CC5DA26B638AC75B17A0077D9D0FAA4EA6B36495"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/8CD8EF2002D7F34EE0EC0675AF1FD5B756070E3B"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-5813334576"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/FD5A1DB4164BA331CACC9930693AE7FFD5B42DD1"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-7025469792"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/31854FD9E0DCA9CA3089DABA224AEB37E730C36A"
+        }, 
+        {
+            "group": 3, 
+            "name": "http://dig.isi.edu/ht/data/email/tsbustydemi@gmail.com"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/45D5569B3EFABFB1F5EA0EE0070504CE8094D507"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/AFE5A57EF490FC0F58D5531B7E2CE46B89D8462C"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-2064326279"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-0732575566"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/EF71429817A2807A39AB7AD8A9026D74F6CCCF0B"
+        }, 
+        {
+            "group": 3, 
+            "name": "http://dig.isi.edu/ht/data/email/deliabucharest@gmail.com"
+        }, 
+        {
+            "group": 2, 
+            "name": "http://dig.isi.edu/ht/data/phone/1-4694632879"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/339096549D434199F093AFD348DFC6C0A5DB72E6"
+        }, 
+        {
+            "group": 1, 
+            "name": "http://dig.isi.edu/ht/data/seller/5B9C4D53A79C1D7F8D092290BE714EE571C297DB"
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 1, 
+            "value": 1
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "value": 1
+        }, 
+        {
+            "source": 4, 
+            "target": 6, 
+            "value": 1
+        }, 
+        {
+            "source": 4, 
+            "target": 5, 
+            "value": 1
+        }, 
+        {
+            "source": 6, 
+            "target": 5, 
+            "value": 1
+        }, 
+        {
+            "source": 7, 
+            "target": 8, 
+            "value": 1
+        }, 
+        {
+            "source": 7, 
+            "target": 9, 
+            "value": 1
+        }, 
+        {
+            "source": 7, 
+            "target": 10, 
+            "value": 1
+        }, 
+        {
+            "source": 7, 
+            "target": 11, 
+            "value": 1
+        }, 
+        {
+            "source": 7, 
+            "target": 12, 
+            "value": 1
+        }, 
+        {
+            "source": 15, 
+            "target": 16, 
+            "value": 1
+        }, 
+        {
+            "source": 17, 
+            "target": 18, 
+            "value": 1
+        }
+    ]
+}
