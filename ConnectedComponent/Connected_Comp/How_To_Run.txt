@@ -1,0 +1,11 @@
+Step1:
+Get the conn-comps by running
+./conn-comp 2-month-data 2-month-conn-comp.txt
+
+Step2:
+Postprocess it:
+python postprocess.py 2-month-conn-comp.txt clique-input_rev-dict.txt seller 2-month-cc-postprocessed.txt 
+1st one is connected comps file
+2nd is dictionary mapping of node number to string
+3rd is type to filter out the nodes -1 if you want everything
+4th is postprocessed one
