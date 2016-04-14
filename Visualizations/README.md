@@ -2,7 +2,7 @@
 ### Steps to run [Connected Components code](https://github.com/linhongseba/ConnectedComponent)
 
 ### Step1:
-Run [generate-edges.py](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/generate-edges.py). This creates edges from Seller input file. 
+Run [generate-edges.py](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/util-scripts/generate-edges.py). This creates edges from Seller input file. 
 
 ```
 spark-submit generate-edges.py Seller-seq sequence output
@@ -25,8 +25,8 @@ http://dig.isi.edu/ht/data/seller/759C158B404B9DEA7E41F7E025B2672530A2C0D7	http:
 ###Step2: 
 
 For this algorithm, all the nodes have to be integers. So first convert your string type nodes to integer nodes. I have
-a [str_to_int.py](https://github.com/linhongseba/MaximumClique/blob/master/util/str_to_int.py) script for that. 
-The [str_to_int](https://github.com/linhongseba/MaximumClique/blob/master/util/str_to_int.py) script assumes your data is in the format below:
+a [str_to_int.py](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/util-scripts/str_to_int.py) script for that. 
+The [str_to_int](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/util-scripts/str_to_int.py) script assumes your data is in the format below:
 
 ```
 http://dig.isi.edu/ht/data/seller/0C4766962B2CD28F6EBF6BA1D727F923D0AA1331	http://dig.isi.edu/ht/data/phone/1-6478770951
