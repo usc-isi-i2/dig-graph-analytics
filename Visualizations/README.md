@@ -76,6 +76,7 @@ Node-Number Connected-Comp-Num
 
 ### Step 4:
 Postprocessing:
+Run [postprocess](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/util-scripts/postprocess.py)
 ```
 python postprocess.py <inputFile> <_rev-dict.txt> -1 <outputFile>
 ```
