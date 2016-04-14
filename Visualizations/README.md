@@ -1,7 +1,28 @@
 
 ### Steps to run [Connected Components code](https://github.com/linhongseba/ConnectedComponent)
 
-###Step1: 
+### Step1:
+Run [generate-edges.py](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/generate-edges.py). This creates edges from Seller input file. 
+
+```
+spark-submit generate-edges.py Seller-seq sequence output
+
+Arguments:
+input is seller file
+type is sequence or text
+output file
+```
+Output will look like:
+
+```
+http://dig.isi.edu/ht/data/seller/0C4766962B2CD28F6EBF6BA1D727F923D0AA1331	http://dig.isi.edu/ht/data/phone/1-6478770951
+http://dig.isi.edu/ht/data/seller/759C158B404B9DEA7E41F7E025B2672530A2C0D7	http://dig.isi.edu/ht/data/phone/1-4143648517
+
+```
+
+
+
+###Step2: 
 
 For this algorithm, all the nodes have to be integers. So first convert your string type nodes to integer nodes. I have
 a str_to_int.py script for that. 
