@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+div.tooltip { 
+    position: absolute;     
+    text-align: center;     
+    padding: 2px;       
+    font: 20px sans-serif;    
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+}
+
+</style>
+
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript"> src="http://requirejs.org/docs/release/2.2.0/minified/require.js"</script>
+
+</script>
+
+<body>
+
+<h1>Enter a seller-uri</h1>
+
+<input id="seller_uri">
+
+<button type="button" onclick="queryES()">Submit</button>
+
+<p id="check_validity"></p>
+<script>
+function queryES() {
+var elasticsearch = require('elasticsearch');
+var client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  log: 'trace'
+})
+
+client.ping({
+  requestTimeout: 30000,
+
+  // undocumented params are appended to the query string
+  hello: "elasticsearch"
+}, function (error) {
+  if (error) {
+    console.error('elasticsearch cluster is down!');
+  } else {
+    console.log('All is well');
+  }
+});
+
+
+}
+</script>
+
+<script>
+function showVis() {
+jQuery.get('data.txt', function(data) {
+   var lines = data.split("\n");
+   var hashtable = {};
+   
+   var counter = 0;
+   var output = { "nodes" : [],"links":[] };
+   var seller_uri_text = document.getElementById("seller_uri").value;
+   console.log("You entered " + seller_uri_text);
+
+   for (var i = 0; i < lines.length; i++) {
+     var jsonObject = JSON.parse(lines[i].split("\t")[1]);
+     console.log("Current uri is " + jsonObject.uri);
+     console.log(jsonObject.uri.indexOf(seller_uri_text));
+
+     if(jsonObject.uri.indexOf(seller_uri_text) != -1){
+      var offers = jsonObject.makesOffer;
+      for (var i = 0; i < offers.length; i++) {
+        var offer = offers[i];
+        var webpage = offer.mainEntityOfPage;         
+          if ( !(webpage in hashtable)){
+            hashtable[webpage] = counter;
+            output["nodes"].push({"group" : 1, "name" : webpage.uri});
+            counter++;
+          }
+          console.log("webpage is " + webpage);
+        var mentions = webpage.mentions;
+
+        for (var i = 0; i < mentions.length; i++) {
+            var mention = mentions[i];
+            if(mention.indexOf("phone") != -1){
+              console.log("Phone is " + mention);  
+              if(!(mention in hashtable)){
+                hashtable[mention] = counter;
+                output["nodes"].push({"group" : 2, "name" : mention});
+                counter++;
+              }
+              output["links"].push({"source":hashtable[webpage],"target" : hashtable[mention],"value":1 });
+
+            }else{
+              console.log("Email is" + mention);
+              if(!(mention in hashtable)){
+                hashtable[mention] = counter;
+                output["nodes"].push({"group" : 3, "name" : mention});
+                counter++;
+              }
+              output["links"].push({"source":hashtable[webpage],"target" : hashtable[mention],"value":1 });
+            }
+        
+        }
+
+      }
+     }
+   }
+   console.log("Visualization input is " + JSON.stringify(output));
+   console.log("Hashtable is " + JSON.stringify(hashtable));
+
+// this is the part where d3 comes into picture
+
+var width = 500,
+    height = 500;
+
+var color = d3.scale.category20();
+
+var div = d3.select("body").append("div") 
+    .attr("class", "tooltip")
+    .attr("width",1000)
+    .attr("height",1000)       
+    .style("opacity", 0);
+
+var force = d3.layout.force()
+    .charge(-120)
+    .linkDistance(100)
+    .size([width, height]);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var drag = d3.behavior.drag()
+        .on("drag", function(d,i) {
+            d.x += d3.event.dx
+            d.y += d3.event.dy
+            d3.select(this).attr("transform", function(d,i){
+                return "translate(" + [ d.x,d.y ] + ")"
+            })
+        });
+
+
+ 
+  force
+      .nodes(output.nodes)
+      .links(output.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(output.links)
+    .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var drag = force.drag()
+    .on("dragstart", dragstart);
+
+  var node = svg.selectAll(".node")
+      .data(output.nodes)
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 5)
+      .style("fill", function(d) { return color(d.group); })
+      .call(drag)
+      .on("mouseover", function(d) {    
+            div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            div .html( d.name + "<br/>")
+                .style("left", (d3.event.pageX) + "px")    
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            div.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
+
+  // node.append("title")
+      // .text(function(d) { return d.name; });
+
+ function dragstart(d) {
+  d3.select(this).classed("fixed", d.fixed = true);
+}
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  });
+
+ });
+
+}
+
+</script>
+
+
+</body>
+</html> 
