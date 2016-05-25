@@ -10,6 +10,16 @@ Now go to
 http://localhost:8000 
 ```
 on your web browser.
+If you see 
+```
+ No 'Access-Control-Allow-Origin' header is present on the requested resource
+```
+in the browser console, it's because browser don't allow cross domain requests. You have to start chrome in disable web security mode using
+```
+ open /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir
+ ```
+ Now, it should work.
+
 You can enter a seller URI and how many webpages for that URI you want to see. Few seller URIS are there in the [seller-uris.txt](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/Force-Directed-New/seller-uris.txt). You can try them.
 
 
