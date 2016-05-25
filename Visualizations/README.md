@@ -5,7 +5,11 @@ Force-directed-New folder has the code for visualization. Just go to that folder
 ```
 python -m SimpleHTTPServer 8000
 ```
-Now go to http://localhost:8000 on your web browser.
+Now go to 
+```
+http://localhost:8000 
+```
+on your web browser.
 You can enter a seller URI and how many webpages for that URI you want to see. Few seller URIS are there in the seller-uri.txt file. You can try them.
 
 
