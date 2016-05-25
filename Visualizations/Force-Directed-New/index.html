@@ -29,114 +29,111 @@ div.tooltip {
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript"> src="http://requirejs.org/docs/release/2.2.0/minified/require.js"</script>
 
-</script>
+
 
 <body>
 
-<h1>Enter a seller-uri</h1>
 
-<input id="seller_uri">
-
-<button type="button" onclick="queryES()">Submit</button>
-
-<p id="check_validity"></p>
-<script>
-function queryES() {
-var elasticsearch = require('elasticsearch');
-var client = new elasticsearch.Client({
-  host: 'localhost:9200',
-  log: 'trace'
-})
-
-client.ping({
-  requestTimeout: 30000,
-
-  // undocumented params are appended to the query string
-  hello: "elasticsearch"
-}, function (error) {
-  if (error) {
-    console.error('elasticsearch cluster is down!');
-  } else {
-    console.log('All is well');
-  }
-});
-
-
-}
-</script>
+Seller-URI :
+<input id="seller_uri" type = "text" size="80">
+<br><br>
+Number of webpages to show :
+<input id="num_webpages" type = "text">
+<br><br>
+<button type="button" onclick="queryES(document.getElementById('seller_uri').value,document.getElementById('num_webpages').value)">Submit</button>
 
 <script>
-function showVis() {
-jQuery.get('data.txt', function(data) {
-   var lines = data.split("\n");
-   var hashtable = {};
-   
-   var counter = 0;
-   var output = { "nodes" : [],"links":[] };
-   var seller_uri_text = document.getElementById("seller_uri").value;
-   console.log("You entered " + seller_uri_text);
+function queryES(seller_uri,num_webpages) {
+  console.log("seller uri entered is "+ seller_uri,num_webpages);
+  var body = {    
+                    "filter": {
+                            "term": {
+                                "mainEntity.seller.uri": seller_uri
+                                    }
+                              },
+                    "size" :  num_webpages
+                }
 
-   for (var i = 0; i < lines.length; i++) {
-     var jsonObject = JSON.parse(lines[i].split("\t")[1]);
-     console.log("Current uri is " + jsonObject.uri);
-     console.log(jsonObject.uri.indexOf(seller_uri_text));
+    var ajaxCall = $.ajax({
+            url: 'http://memex:digdig@52.38.229.251:8080/dig-latest/webpage/_search',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            dataType: 'json',
+            data : JSON.stringify(body),
+        });
 
-     if(jsonObject.uri.indexOf(seller_uri_text) != -1){
-      var offers = jsonObject.makesOffer;
-      for (var i = 0; i < offers.length; i++) {
-        var offer = offers[i];
-        var webpage = offer.mainEntityOfPage;         
-          if ( !(webpage in hashtable)){
-            hashtable[webpage] = counter;
-            output["nodes"].push({"group" : 1, "name" : webpage.uri});
-            counter++;
-          }
-          console.log("webpage is " + webpage);
-        var mentions = webpage.mentions;
+   $.when(ajaxCall).then(function(response) { 
+                       showVis(response); 
+                   });
 
-        for (var i = 0; i < mentions.length; i++) {
-            var mention = mentions[i];
-            if(mention.indexOf("phone") != -1){
-              console.log("Phone is " + mention);  
-              if(!(mention in hashtable)){
-                hashtable[mention] = counter;
-                output["nodes"].push({"group" : 2, "name" : mention});
+
+   function showVis(response) {
+
+        var queryResults = response.hits.hits;
+        var hashtable = {};
+        var output = { "nodes" : [],"links":[] };
+        var counter=0;
+
+        for (var i = 0; i < queryResults.length; i++) {
+             var webpage = queryResults[i]._source;
+             // var seller_uri = webpage.mainEntity.seller.uri;
+             console.log("length of query results is "+queryResults.length);
+             // console.log("webpage object is "+JSON.stringify(webpage));
+             console.log("Webpage URI is " + webpage.uri);
+             // console.log("Seller URI is "+seller_uri);
+             // if( !(seller_uri in hashtable)){
+             //      hashtable[seller_uri] = counter;
+             //      output['nodes'].push({"group" : 1,"name":seller_uri});
+             //      counter++;
+             // }
+
+             if ( !(webpage.uri in hashtable)){
+                 hashtable[webpage.uri] = counter;
+                output["nodes"].push({"group" : 2, "name" : webpage.uri});
                 counter++;
-              }
-              output["links"].push({"source":hashtable[webpage],"target" : hashtable[mention],"value":1 });
+                }
+            // output["links"].push({"source":hashtable[seller_uri],"target" : hashtable[webpage.uri],"value":1 });
 
-            }else{
-              console.log("Email is" + mention);
-              if(!(mention in hashtable)){
-                hashtable[mention] = counter;
-                output["nodes"].push({"group" : 3, "name" : mention});
-                counter++;
+            if(typeof webpage.mentions != 'undefined'){
+                var mentions = webpage.mentions;
+                // console.log("Mentions for webpage URI "+ webpage.uri + "are "+mentions);
+                for (var j = 0; j < mentions.length; j++) {
+                    var mention = mentions[j];
+                        if(mention.indexOf("phone") != -1){
+                              // console.log("Phone is " + mention);  
+                              if(!(mention in hashtable)){
+                              hashtable[mention] = counter;
+                              output["nodes"].push({"group" : 3, "name" : mention}); // this is Phone
+                              counter++;
+                            }
+                          output["links"].push({"source":hashtable[webpage.uri],"target" : hashtable[mention],"value":1 });
+
+                        } 
+                        else{
+                              // console.log("Email is" + mention);
+                              if(!(mention in hashtable)){
+                                  hashtable[mention] = counter;
+                                  output["nodes"].push({"group" : 4, "name" : mention}); // this is Email
+                                  counter++;
+                            }
+                          output["links"].push({"source":hashtable[webpage.uri],"target" : hashtable[mention],"value":1 });
+                        }
+                }    
               }
-              output["links"].push({"source":hashtable[webpage],"target" : hashtable[mention],"value":1 });
-            }
-        
+
         }
+  console.log(JSON.stringify(output["links"]));
+  var width = 2000,height = 2000;
+  var color = d3.scale.category20();
 
-      }
-     }
-   }
-   console.log("Visualization input is " + JSON.stringify(output));
-   console.log("Hashtable is " + JSON.stringify(hashtable));
-
-// this is the part where d3 comes into picture
-
-var width = 500,
-    height = 500;
-
-var color = d3.scale.category20();
-
-var div = d3.select("body").append("div") 
+  var div = d3.select("body").append("div") 
     .attr("class", "tooltip")
-    .attr("width",1000)
-    .attr("height",1000)       
+    .attr("width",width)
+    .attr("height",height)       
     .style("opacity", 0);
 
-var force = d3.layout.force()
+  var force = d3.layout.force()
     .charge(-120)
     .linkDistance(100)
     .size([width, height]);
@@ -153,8 +150,6 @@ var drag = d3.behavior.drag()
                 return "translate(" + [ d.x,d.y ] + ")"
             })
         });
-
-
  
   force
       .nodes(output.nodes)
@@ -208,8 +203,7 @@ var drag = d3.behavior.drag()
         .attr("cy", function(d) { return d.y; });
   });
 
- });
-
+  }
 }
 
 </script>

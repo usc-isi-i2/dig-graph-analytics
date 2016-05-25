@@ -1,0 +1,6 @@
+http://dig.isi.edu/ht/data/seller/cluster/565D91BFBE03C78BA2FFBFD2D3709CDB5D234A3F -> 111
+http://dig.isi.edu/ht/data/seller/cluster/EE420D78FCCE58E732E6DE3434A790F831F4A599 -> 39 
+http://dig.isi.edu/ht/data/seller/cluster/4FBEC8A2C891E91A2145F852B16DE98EF74CB77C -> 50
+http://dig.isi.edu/ht/data/seller/cluster/19CB857EB36DAC20262A462FB718C30A8E94E634
+http://dig.isi.edu/ht/data/seller/cluster/FC283A4C592C0826CA2283B375F1F6C590B41842
+http://dig.isi.edu/ht/data/seller/cluster/C0FAF303D4019EF307CBA6E664704FC92187B50E -> 143966
