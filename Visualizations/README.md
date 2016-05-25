@@ -10,7 +10,7 @@ Now go to
 http://localhost:8000 
 ```
 on your web browser.
-You can enter a seller URI and how many webpages for that URI you want to see. Few seller URIS are there in the seller-uri.txt file. You can try them.
+You can enter a seller URI and how many webpages for that URI you want to see. Few seller URIS are there in the [seller-uris.txt](https://github.com/usc-isi-i2/dig-graph-analytics/blob/master/Visualizations/Force-Directed-New/seller-uris.txt). You can try them.
 
 
 ### Steps to run [Connected Components code](https://github.com/linhongseba/ConnectedComponent)
